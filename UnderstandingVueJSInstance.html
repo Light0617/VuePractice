@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="">
+    <title>Vue</title>
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <div id='app1'>
+    <h1 ref='heading'> {{ title }} </h1>
+    <button @click='show' ref='myButton'> Show Paragraph </button>
+    <p v-if='showParagraph'> This is not always visible</p>
+  </div>
+
+  <div id='app2'>
+    <h1> {{ title }} </h1>
+    <button @click='onChange'> Change something in Vue1 </button>
+    <hi></hi>
+    <hi></hi>
+  </div>
+  
+
+  <script>
+    /**
+     * there are 2 points
+     * 1) vue automatically watch the mem of array and change it
+     * 2) using key will be safe
+     * */
+
+    var data = {
+      title: 'The VueJS Instance',
+      showParagraph: false
+    };
+
+    Vue.component('hi', {
+      template: '<h1> Hi! </h1>'
+    });
+
+    var vm1 = new Vue({
+      data: data,
+      methods: {
+        show: function() {
+          this.showParagraph = true;
+          this.updateTitle('The VueJS Instance (updated)');
+          this.$refs.myButton.innerText = 'Test';
+          console.log(this.$refs.myButton);
+        },
+        updateTitle: function(title) {
+          this.title = title;
+        }
+      },
+      computed: {
+        lowercaseTitle: function() {
+          return this.title.lowerCase();
+        }
+      },
+      watch: {
+        title: function(value) {
+          var x = 1;
+        }
+      }
+    });
+
+    vm1.$mount('#app1');
+    console.log(vm1.$data === data);
+    //it won't change because Vue will render DOM and overwrite that even it change the DOM.
+    vm1.$refs.heading.innerText = 'Someting else';
+
+    var vm2 = new Vue({
+      el: '#app2',
+      data: {
+        title: 'The VueJS Instance'
+      },
+      methods: {
+        onChange: function() {
+          vm1.title = 'changed!';
+        }
+      }
+    });
+
+    var vm3 = new Vue({
+      el: 'hello',
+      template: '<h1>Hello!</h1>'
+    });
+
+    // vm3.$mount('#app3');
+
+    // var vm4 = new Vue({
+    //   template: '<h1>Hello!</h1>'
+    // });
+    
+    // vm4.$mount();
+    // document.getElementById('app4').appendChild(vm4.$el);
+
+  </script>
+</body>
+
+</html>

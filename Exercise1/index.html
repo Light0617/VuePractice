@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="">
+    <title>Vue</title>
+</head>
+
+<body>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <div id="exercise">
+         <p>VueJS is pretty cool - {{name}} ({{age}})</p>
+         <p> {{age * 3}}</p>
+         <p> {{getRandomNumber()}}</p>
+         <div>
+             <img style="width:100px;height:100px" v-bind:src='imagePath'>
+         </div>
+         <div>
+             <input type="text" v-bind:value="name">
+         </div>
+     </div>
+  <script>
+    new Vue({
+      el: '#exercise',
+      data: {
+        name: 'Arthur',
+        age: '26',
+        imagePath: 'https://neverschooled.files.wordpress.com/2011/03/zeus-greek-mythology-687267_1024_768-e1301421182630.jpg'
+      },
+      methods: {
+        getRandomNumber() {
+            return Math.random();
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
