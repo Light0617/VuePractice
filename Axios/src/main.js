@@ -4,6 +4,9 @@ import axios from 'axios';
 
 import router from './router'
 import store from './store'
+import Vuelidate from 'vuelidate';
+
+Vue.use(Vuelidate);
 
 axios.defaults.baseURL = "https://axio-97e26.firebaseio.com";
 axios.defaults.headers.get["Accepts"] = "application/json";

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from './axios-auth';
-import globalAxios from "./axios-auth";
+import globalAxios from "axios";
 import router from './router';
 
 Vue.use(Vuex)
@@ -33,8 +33,7 @@ export default new Vuex.Store({
       }, expirationTime * 1000);
     },
     signup({ commit, dispatch }, authData) {
-      axios
-        .post("/signupNewUser?key=AIzaSyA6_YxVyZda2TBAjlde5wpP8hJg0v4Kw_c", {
+      axios.post("/signupNewUser?key=AIzaSyA6_YxVyZda2TBAjlde5wpP8hJg0v4Kw_c", {
           email: authData.email,
           password: authData.password,
           returnSecureToken: true
@@ -104,8 +103,7 @@ export default new Vuex.Store({
       if (!state.idToken) {
         return;
       }
-      globalAxios
-        .post("/users.json" + "?auth=" + state.idToken, userData)
+      globalAxios.post("/users.json" + "?auth=" + state.idToken, userData)
         .then(res => console.log(res))
         .catch(error => console.log(error));
     },
@@ -113,8 +111,7 @@ export default new Vuex.Store({
       if (!state.idToken) {
         return;
       }
-      globalAxios
-        .get("/users.json" + "?auth=" + state.idToken)
+      globalAxios.get("/users.json" + "?auth=" + state.idToken)
         .then(res => {
           console.log(res);
           const data = res.data;
